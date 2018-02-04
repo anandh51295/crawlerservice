@@ -9,9 +9,9 @@ def hello_world():
     """
     Run spider in another process and store items in file. Simply issue command:
 
-    > scrapy crawl dmoz -o "output.json"
+    > scrapy crawl dmoz -o "output1.json"
 
-    wait for  this command to finish, and read output.json to client.
+    wait for  this command to finish, and read output1.json to client.
     """
     spider_name = "mongodemo"
     lnk=request.json['url']
