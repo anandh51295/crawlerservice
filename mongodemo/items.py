@@ -15,6 +15,7 @@ class MongodemoItem(scrapy.Item):
     url_from = Field()
     url_to = Field()
     title = Field()
+    projecturl = Field()
     meta_property = Field()
     meta_content = Field()
     meta_charset = Field()

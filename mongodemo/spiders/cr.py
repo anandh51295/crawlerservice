@@ -59,6 +59,7 @@ class mongodemo(CrawlSpider):
                 # req_list=set([link.url])
                 # if req_list:
                     item = MongodemoItem()
+                    item['projecturl'] = allowed_domain
                     item['title'] = response.xpath('//title/text()').extract()
                     item['meta_property'] = response.xpath('//meta/@property').extract()
                     item['meta_content'] = response.xpath('//meta/@content').extract()
