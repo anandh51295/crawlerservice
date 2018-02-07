@@ -12,8 +12,8 @@ from scrapy import Field
 class MongodemoItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    url_from = Field()
-    url_to = Field()
+    url = Field()
+    # url_to = Field()
     title = Field()
     projecturl = Field()
     meta_property = Field()

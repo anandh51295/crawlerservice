@@ -439,8 +439,8 @@ class mongodemo(CrawlSpider):
 
 
 
-                        item['url_from'] = response.url
-                        item['url_to'] = link.url
+                        item['url'] = response.url
+                        # item['url_to'] = link.url
                         items.append(item)
         with open('at.json', 'r') as f:
             dis_dict = json.load(f)
