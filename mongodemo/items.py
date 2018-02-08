@@ -12,7 +12,13 @@ from scrapy import Field
 class MongodemoItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
+    project = Field()
+    form = Field()
+    div = Field()
+    meta = Field()
     url = Field()
+    value = Field()
+    _id=Field()
     # url_to = Field()
     title = Field()
     projecturl = Field()
