@@ -61,10 +61,10 @@ class mongodemo(CrawlSpider):
                     ul = set(url)
                     # lt = list(ul)
                     if link.url in ul:
-                        # is_allowed = True
+                        is_allowed = True
 
 
-            # if is_allowed:
+            if is_allowed:
                 # for lnk in link.url:
                 # req_list=set([link.url])
                 # if req_list:
@@ -443,14 +443,22 @@ class mongodemo(CrawlSpider):
                         val['label_form'] = response.xpath('//label/@form').extract()
                         val['url'] = response.url
 
-                        item['meta']=[]
-                        item['div']=[]
-                        item['form']=[]
-                        item['value']=[]
-                        item['meta'].append(met)
-                        item['div'].append(di)
-                        item['form'].append(fom)
-                        item['value'].append(val)
+                        item['project']=[]
+                        # item['div']=[]
+                        # item['form']=[]
+                        # item['value']=[]
+                        a = defaultdict(list)
+                        b = defaultdict(list)
+                        c = defaultdict(list)
+                        d = defaultdict(list)
+                        a['meta'].append(met)
+                        b['div'].append(di)
+                        c['form'].append(fom)
+                        d['value'].append(val)
+                        item['project'].append(d)
+                        item['project'].append(a)
+                        item['project'].append(b)
+                        item['project'].append(c)
 
 
                         # item['project'].append(val)
