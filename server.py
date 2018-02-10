@@ -34,8 +34,8 @@ def hello_world():
     f.truncate()
     f.close()
     data = {}
-    data['id'] = []
-    data['id'].append(ls)
+    data['links'] = []
+    data['links'].append(ls)
 
     data['project']=name
     # return jsonify({'list': data})
