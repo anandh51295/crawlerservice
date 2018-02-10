@@ -21,7 +21,14 @@ class MongodemoPipeline(object):
                 valid = False
                 raise DropItem("Missing {0}!".format(data))
         if valid:
-            self.collection.insert(dict(item))
+            # col = item['db']
+            # self.db[col].insert(dict(item))
+            _id=self.collection.insert(dict(item))
+            log.msg(_id)
+            val=str(_id)
+            f = open("output.text", "a+")
+            f.write(val)
+            f.write(",")
             log.msg("Data added to MongoDB database!",
                     level=log.DEBUG, spider=spider)
         return item

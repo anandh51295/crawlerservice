@@ -1,8 +1,12 @@
 import subprocess
+from flask_pymongo import PyMongo
 
-from flask import Flask, request
+from flask import Flask, request, json, jsonify
 
 app = Flask(__name__)
+app.config['MONGO_URI'] = 'mongodb://admin:12345@ds239097.mlab.com:39097/demo'
+app.config['MONGO_DBNAME'] = 'demo'
+mongo = PyMongo(app, config_prefix='MONGO')
 
 @app.route('/',methods=['POST'])
 def hello_world():
@@ -15,10 +19,35 @@ def hello_world():
     """
     spider_name = "mongodemo"
     lnk=request.json['url']
-    subprocess.check_output(['scrapy', 'crawl', spider_name, "-a", "start_url="+lnk, "-o", "output.json"])
+    name=request.json['project_name']
+    subprocess.check_output(['scrapy', 'crawl', spider_name, "-a", "start_url="+lnk])
     ok=201
-    with open("output.json") as items_file:
-        return items_file.read(),ok
+    ls=[]
+    # with open("output.json") as items_file:
+    with open("output.text") as items_file:
+        id=items_file.read()
+        id.strip()
+        for x in id.split(','):
+            ls.append(x)
+
+    f = open('output.text', 'r+')
+    f.truncate()
+    f.close()
+    data = {}
+    data['id'] = []
+    data['id'].append(ls)
+
+    data['project']=name
+    # return jsonify({'list': data})
+
+    with open('output.json', 'w') as outfile:
+        json.dump(data, outfile)
+    mongo.db.projectdetails.insert(data)
+    data.clear()
+    ls.clear()
+    with open('output.json') as items:
+        return items.read(),ok
+
 
 if __name__ == '__main__':
     app.run(debug=True)
