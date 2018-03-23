@@ -1,7 +1,8 @@
 import subprocess
 from flask_pymongo import PyMongo
-
+import pysitemap
 from flask import Flask, request, json, jsonify
+import os
 
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://admin:12345@ds239097.mlab.com:39097/demo'
@@ -45,9 +46,76 @@ def hello_world():
     mongo.db.projectdetails.insert(data)
     data.clear()
     ls.clear()
+
     with open('output.json') as items:
+        return items.read(),ok
+
+@app.route('/flow',methods=['POST'])
+def sitemap():
+    # f = open('tst.json', 'r+')
+    # f.truncate()
+    # f.close()
+    spider = "sitemap"
+    lnk1=request.json['url']
+    # name1=request.json['project_name']
+    subprocess.check_output(['scrapy', 'crawl', spider, "-a", "start_url="+lnk1])
+    ok=201
+    # lt=[]
+    # with open("tst.json") as items_file:
+    #     id=items_file.read()
+    #     id.strip()
+    #     for x in id.split(','):
+    #         lt.append(x)
+    # val = {}
+    # val['children'] = []
+    # for i in lt:
+    #     if i in lnk1:
+    #         val['text']=i
+
+    with open('tst.json') as items:
+        return items.read(),ok
+
+@app.route('/sitemap', methods=['POST'])
+def map():
+    os.remove("sitemap.xml")
+    ok=201
+    lnk2 = request.json['url']
+    url = 'https://muditasol.weebly.com'  # url from to crawl
+    logfile = 'errlog.log'  # path to logfile
+    oformat = 'xml'  # output format
+    crawl = pysitemap.Crawler(url=lnk2, logfile=logfile, oformat=oformat)
+    crawl.crawl()
+    with open('sitemap.xml') as items:
+        return items.read(), ok
+
+
+@app.route('/file',methods=['POST'])
+def auto():
+    """
+    Run spider in another process and store items in file. Simply issue command:
+
+    > scrapy crawl dmoz -o "output1.json"
+
+    wait for  this command to finish, and read output1.json to client.
+    """
+
+    lnk=request.json
+    ok=201
+    # with open("output.json") as items_file:
+
+    # return jsonify({'list': data})
+    f = open('at.json', 'r+')
+    f.truncate()
+    f.close()
+
+    with open('at.json', 'w+') as outfile:
+        json.dump(lnk, outfile)
+
+
+    with open('at.json') as items:
         return items.read(),ok
 
 
 if __name__ == '__main__':
+
     app.run(debug=True)
