@@ -475,53 +475,53 @@ class mongodemo(CrawlSpider):
 
                 # item['url_to'] = link.url
 
-                with open('at.json', 'r') as f:
-                    dis_dict = json.load(f)
-                    for i in dis_dict:
-                        try:
-                                #driver.get(response.url)
-                                #next = driver.find_element_by_name(i['Name'])
-                                next = response.xpath('//input[@type="text"]|//input[@type="email"]|//input[@type="password"]').extract()
-                                chk = response.xpath(
-                                    '//input[@type="checkbox"]|//input[@type="radio"]').extract()
-                                if next:
-                                    options = Options()
-                                    options.add_argument('--headless')
-                                    options.add_argument('--disable-gpu')
-                                    driver = webdriver.Chrome("C:\\Users\\Virus\\Downloads\\Compressed\\chromedriver_win32\\chromedriver.exe",chrome_options=options)
-
-                                    # driver = webdriver.PhantomJS("C:\\Users\\Virus\\Downloads\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs")
-                                    driver.get(response.url)
-
-                                    inp = driver.find_elements_by_css_selector('input')
-                                    for el in inp:
-                                        #driver.find_element_by_name(distro['Name']
-                                        for distro in dis_dict:
-                                            if el.get_attribute('name')==distro['Name']:
-                                                if chk:
-                                                    el.find_element_by_value(distro['value']).click()
-                                                el.send_keys(distro['value'])
-                                    #for distro in dis_dict:
-                                        #driver.find_element_by_name(distro['Name']).send_keys(distro['value'])
-                                    #driver.find_element_by_class_name("wsite-button").click()
-                                    bt=driver.find_element_by_css_selector('input')
-                                    for ele in bt:
-                                        if ele.getAttribute('type')== 'submit':
-                                            ele.click()
-                                    #page = response.url.split("/")[-1]
-                                    #if page == '':
-                                    #    filename = 'quotes-Home%s.html' % page
-                                    #else:
-                                    #    filename = 'quotes-%s.html' % page
-                                    #print("FileName: ", filename)
-
-                                    #with open(filename, 'wb') as f:
-                                    #    f.write(response.body)
-                                    #self.log('Saved file %s' % filename)
-                                    driver.close()
-                        except:
-                                driver.close()
-                                break
+                # with open('at.json', 'r') as f:
+                #     dis_dict = json.load(f)
+                #     for i in dis_dict:
+                #         try:
+                #                 #driver.get(response.url)
+                #                 #next = driver.find_element_by_name(i['Name'])
+                #                 next = response.xpath('//input[@type="text"]|//input[@type="email"]|//input[@type="password"]').extract()
+                #                 chk = response.xpath(
+                #                     '//input[@type="checkbox"]|//input[@type="radio"]').extract()
+                #                 if next:
+                #                     options = Options()
+                #                     options.add_argument('--headless')
+                #                     options.add_argument('--disable-gpu')
+                #                     driver = webdriver.Chrome("C:\\Users\\Virus\\Downloads\\Compressed\\chromedriver_win32\\chromedriver.exe",chrome_options=options)
+                #
+                #                     # driver = webdriver.PhantomJS("C:\\Users\\Virus\\Downloads\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs")
+                #                     driver.get(response.url)
+                #
+                #                     inp = driver.find_elements_by_css_selector('input')
+                #                     for el in inp:
+                #                         #driver.find_element_by_name(distro['Name']
+                #                         for distro in dis_dict:
+                #                             if el.get_attribute('name')==distro['Name']:
+                #                                 if chk:
+                #                                     el.find_element_by_value(distro['value']).click()
+                #                                 el.send_keys(distro['value'])
+                #                     #for distro in dis_dict:
+                #                         #driver.find_element_by_name(distro['Name']).send_keys(distro['value'])
+                #                     #driver.find_element_by_class_name("wsite-button").click()
+                #                     bt=driver.find_element_by_css_selector('input')
+                #                     for ele in bt:
+                #                         if ele.getAttribute('type')== 'submit':
+                #                             ele.click()
+                #                     #page = response.url.split("/")[-1]
+                #                     #if page == '':
+                #                     #    filename = 'quotes-Home%s.html' % page
+                #                     #else:
+                #                     #    filename = 'quotes-%s.html' % page
+                #                     #print("FileName: ", filename)
+                #
+                #                     #with open(filename, 'wb') as f:
+                #                     #    f.write(response.body)
+                #                     #self.log('Saved file %s' % filename)
+                #                     driver.close()
+                #         except:
+                #                 driver.close()
+                #                 break
                 return items
                     # page = response.url.split("/")[-1]
                     # if page == '':
