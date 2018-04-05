@@ -78,6 +78,7 @@ class mongodemo(CrawlSpider):
                 met=defaultdict(list)
                 di=defaultdict(list)
                 fom=defaultdict(list)
+                sor=defaultdict(list)
                 val['projecturl'] = allowed_domain
                 val['title'] = response.xpath('//title/text()').extract()
                 met['meta_property'] = response.xpath('//meta/@property').extract()
@@ -447,6 +448,21 @@ class mongodemo(CrawlSpider):
                 val['label_form'] = response.xpath('//label/@form').extract()
                 val['url'] = response.url
 
+
+
+                with open('source.txt', 'wb') as f:
+                    f.write(response.body)
+
+                file = open('source.txt','r+')
+                src=file.read()
+                file.close()
+                sor['source']=src
+                f = open('source.txt', 'r+')
+                f.truncate()
+                f.close()
+
+
+
                 item['project'] = []
                 # item['div']=[]
                 # item['form']=[]
@@ -455,14 +471,18 @@ class mongodemo(CrawlSpider):
                 b = defaultdict(list)
                 c = defaultdict(list)
                 d = defaultdict(list)
+                e = defaultdict(list)
                 a['meta'].append(met)
                 b['div'].append(di)
                 c['form'].append(fom)
                 d['value'].append(val)
+                e['pagedata'].append(sor)
                 item['project'].append(d)
                 item['project'].append(a)
                 item['project'].append(b)
                 item['project'].append(c)
+                item['project'].append(e)
+
 
                 # item['project'].append(val)
                 # item['meta'].append(met)
